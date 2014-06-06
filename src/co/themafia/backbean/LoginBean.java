@@ -2,6 +2,7 @@ package co.themafia.backbean;
 
 import java.io.Serializable;
 
+import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -21,6 +22,7 @@ public class LoginBean implements Serializable{
 	private String password;
 	private String perfil;
 	private Persona persona;
+	private String login;
 	@PersistenceContext EntityManager em;
 
 	
@@ -52,7 +54,20 @@ public class LoginBean implements Serializable{
 		this.persona = persona;
 	}
 	
+	public String getLogin() {
+		return login;
+	}
+	
+	public void setLogin(String login) {
+		this.login = login;
+		String datos[] = login.split("_");
+		usuario = datos[0];
+		
+	}
+	
 	public String ConsultarUsuario() {
+		String datos[] = login.split("_");
+		password = datos[1];
 		String resp = "ninguno";
 		try {
 			Query q = em.createNamedQuery("Persona.onlyPerson");

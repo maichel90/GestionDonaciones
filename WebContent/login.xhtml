@@ -11,6 +11,9 @@
 </h:head> 
 <body>
 	<h:form>
+	<f:metadata>
+		<f:viewParam name="user" value="#{loginBean.login}" />
+	</f:metadata>
 		Usuario:	<p:inputText value="#{loginBean.usuario}"/>
 		<br/>
 		Contrasena:	<p:password value="#{loginBean.password}"/>
