@@ -37,8 +37,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import co.themafia.entities.Donacion;
 import co.themafia.entities.Donante;
-import co.themafia.generaarchivo.dto.GeneradorArchivosDetalleInDTO;
-import co.themafia.generaarchivo.dto.GeneradorArchivosInDTO;
 
 public class GenerarArchivoBean {
 

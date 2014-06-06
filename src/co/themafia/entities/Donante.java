@@ -13,7 +13,6 @@ import java.util.List;
 @NamedQueries({
 	@NamedQuery(name="Donante.findAll", query="SELECT d FROM Donante d"),
 	@NamedQuery(name="Donante.findByCedula", query="SELECT d FROM Donante d where d.cedula = :identificacion")
-
 })
 public class Donante implements Serializable {
 	private static final long serialVersionUID = 1L;
