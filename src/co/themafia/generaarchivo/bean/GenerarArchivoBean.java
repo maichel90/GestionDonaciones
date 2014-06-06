@@ -35,6 +35,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
+import co.themafia.entities.Donacion;
+import co.themafia.entities.Donante;
 import co.themafia.generaarchivo.dto.GeneradorArchivosDetalleInDTO;
 import co.themafia.generaarchivo.dto.GeneradorArchivosInDTO;
 
@@ -54,9 +56,10 @@ public class GenerarArchivoBean {
 	public static String encabezado11 = " días del mes de ";
 	public static String encabezado12 = " de ";
 	public static String encabezado13 = "Cordialmente; ";
+	private String rutaArchivo;
 	
 	
-	public Document generarArchivo(GeneradorArchivosInDTO inDTO) throws MalformedURLException, IOException {
+	public Document generarArchivo(Donante donante) throws MalformedURLException, IOException {
 
 		Document documento = new Document(PageSize.LETTER, 80, 80, 75, 75);
 
@@ -64,7 +67,7 @@ public class GenerarArchivoBean {
 
 		try {
 			// Obtenemos la instancia del archivo a utilizar
-			String rutaArchivo = archivo.concat("_").concat(inDTO.getNumeroIdentificacion().concat(".pdf"));
+			rutaArchivo = archivo.concat("_")+donante.getCedula()+".pdf";
 			writer = PdfWriter.getInstance(documento, new FileOutputStream(rutaArchivo));
 		} catch (FileNotFoundException | DocumentException ex) {
 			ex.getMessage();
@@ -79,7 +82,7 @@ public class GenerarArchivoBean {
 		documento.open();
 		try {
 			
-		Image imagenLogo = Image.getInstance("image/backgroundcampfinal1.jpg");
+		Image imagenLogo = Image.getInstance("../standalone/deployments/GestionDonaciones.war/resources/images/background.jpg");
 	      //Alineamos la imagen al centro
 	      imagenLogo.setAlignment(Image.ALIGN_RIGHT);
 	      //Escalamos la imagen al 50%
@@ -126,10 +129,8 @@ public class GenerarArchivoBean {
 			Paragraph parrafo1 = new Paragraph();
 
 			parrafo1.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-			parrafo1.setFont(FontFactory.getFont("Sans", 12, Font.NORMAL,
-					BaseColor.BLACK));
-			parrafo1.add(encabezado1+inDTO.getNombreDonante()+encabezado2+inDTO.getTipoDocumento()+encabezado3+inDTO.getNumeroIdentificacion()
-					+encabezado4);
+			parrafo1.setFont(FontFactory.getFont("Sans", 12, Font.NORMAL,BaseColor.BLACK));
+			parrafo1.add(encabezado1+donante.getNombre()+encabezado2+ "CC"+encabezado3+donante.getCedula()+encabezado4);
 
 			documento.add(parrafo1);
 			
@@ -138,8 +139,7 @@ public class GenerarArchivoBean {
 			Paragraph columna1 = new Paragraph();
 
 			columna1.setAlignment(Paragraph.ALIGN_CENTER);
-			columna1.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,
-					BaseColor.BLACK));
+			columna1.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,BaseColor.BLACK));
 			columna1.add(encabezado5);
 
 			tabla.addCell(columna1);
@@ -147,8 +147,7 @@ public class GenerarArchivoBean {
 			Paragraph columna2 = new Paragraph();
 
 			columna2.setAlignment(Paragraph.ALIGN_CENTER);
-			columna2.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,
-					BaseColor.BLACK));
+			columna2.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,BaseColor.BLACK));
 			columna2.add(encabezado6);
 
 			tabla.addCell(columna2);
@@ -156,8 +155,7 @@ public class GenerarArchivoBean {
 			Paragraph columna3 = new Paragraph();
 
 			columna3.setAlignment(Paragraph.ALIGN_CENTER);
-			columna3.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,
-					BaseColor.BLACK));
+			columna3.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,BaseColor.BLACK));
 			columna3.add(encabezado7);
 
 			documento.add(new Paragraph(" "));
@@ -168,16 +166,15 @@ public class GenerarArchivoBean {
 			Paragraph columna4 = new Paragraph();
 
 			columna4.setAlignment(Paragraph.ALIGN_CENTER);
-			columna4.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,
-					BaseColor.BLACK));
+			columna4.setFont(FontFactory.getFont("Sans", 12, Font.BOLD,BaseColor.BLACK));
 			columna4.add(encabezado8);
 
 			tabla.addCell(columna4);
 			
-			for(GeneradorArchivosDetalleInDTO detalle : inDTO.getDatosDonacion()){
-				tabla.addCell(detalle.getNombreCampana());
-				tabla.addCell(detalle.getFechaDonacion());
-				tabla.addCell(detalle.getValorCampana());
+			for(Donacion detalle : donante.getDonacions()){
+				tabla.addCell(detalle.getCampanha().getNombre());
+				tabla.addCell(detalle.getEstado()+"");
+				tabla.addCell(detalle.getValor()+"");
 				tabla.addCell(detalle.getFormaPago());
 				
 			}
@@ -217,7 +214,7 @@ public class GenerarArchivoBean {
 			documento.add(new Paragraph(" "));
 			documento.add(new Paragraph(" "));
 			
-			Image imagen = Image.getInstance("image/images.jpg");
+			Image imagen = Image.getInstance("../standalone/deployments/GestionDonaciones.war/resources/images/images.jpg");
 		      //Alineamos la imagen al centro
 		      imagen.setAlignment(Image.ALIGN_LEFT);
 		      //Escalamos la imagen al 50%
@@ -227,8 +224,7 @@ public class GenerarArchivoBean {
 			
 			Paragraph parrafo4 = new Paragraph();
 			parrafo4.setAlignment(Paragraph.ALIGN_JUSTIFIED);
-			parrafo4.setFont(FontFactory.getFont("Sans", 12, Font.NORMAL,
-					BaseColor.BLACK));
+			parrafo4.setFont(FontFactory.getFont("Sans", 12, Font.NORMAL,BaseColor.BLACK));
 			parrafo4.add("Gabriel Medellín");
 			
 			documento.add(parrafo4);
@@ -243,41 +239,7 @@ public class GenerarArchivoBean {
 		return documento;
 	}
 	
-	public void abrirArchivo(GeneradorArchivosInDTO generadorArchivosInDTO){
-		GeneradorArchivosInDTO inDTO = new GeneradorArchivosInDTO();
-		inDTO.setNombreDonante(generadorArchivosInDTO.getNombreDonante());
-		inDTO.setTipoDocumento(generadorArchivosInDTO.getTipoDocumento());
-		inDTO.setNumeroIdentificacion(generadorArchivosInDTO.getNumeroIdentificacion());
-		inDTO.setCorreo(generadorArchivosInDTO.getCorreo());
-		List<GeneradorArchivosDetalleInDTO> detalle = new ArrayList<GeneradorArchivosDetalleInDTO>();
-		
-		for(GeneradorArchivosDetalleInDTO detalleList : generadorArchivosInDTO.getDatosDonacion()){
-		GeneradorArchivosDetalleInDTO inDetalle = new GeneradorArchivosDetalleInDTO();
-		
-		inDetalle.setFechaDonacion(detalleList.getFechaDonacion());
-		inDetalle.setFormaPago(detalleList.getFormaPago());
-		inDetalle.setNombreCampana(detalleList.getNombreCampana());
-		inDetalle.setValorCampana("$"+detalleList.getValorCampana());
-		detalle.add(inDetalle);
-		inDTO.setDatosDonacion(detalle);
-		}
-		try {
-			this.generarArchivo(inDTO );
-			
-			String ruta = archivo.concat("_").concat(inDTO.getNumeroIdentificacion().concat(".pdf"));
-			
-//			File file = new File(ruta);
-			
-//			Desktop.getDesktop().open(file);
-			
-			this.enviarCorreo(ruta, inDTO.getCorreo());
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	public void enviarCorreo (String ruta, String correo) throws MessagingException{
+	public void enviarCorreo (String correo) throws MessagingException{
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.setProperty("mail.smtp.starttls.enable", "true");
@@ -292,7 +254,7 @@ public class GenerarArchivoBean {
 		texto.setText("Un cordial saludo, se envia archivo adjunto el cual contiene el certificado de donación solicitado.");
 		
 		BodyPart adjunto = new MimeBodyPart();
-		adjunto.setDataHandler(new DataHandler(new FileDataSource(ruta)));
+		adjunto.setDataHandler(new DataHandler(new FileDataSource(rutaArchivo)));
 		adjunto.setFileName("Certificado donación.pdf");
 		
 		MimeMultipart multiParte = new MimeMultipart();
@@ -318,25 +280,6 @@ public class GenerarArchivoBean {
 		t.connect("correoBPO@gmail.com","correobpo2014");
 		t.sendMessage(message,message.getAllRecipients());
 		t.close();
-	}
-
-	public static void main(String args []){
-		GenerarArchivoBean gab = new GenerarArchivoBean();
-		
-		GeneradorArchivosInDTO generadorArchivosInDTO = new GeneradorArchivosInDTO();
-		GeneradorArchivosDetalleInDTO inDetalle = new GeneradorArchivosDetalleInDTO();
-		List<GeneradorArchivosDetalleInDTO> listDetalle = new ArrayList<GeneradorArchivosDetalleInDTO>();
-		generadorArchivosInDTO.setCorreo("davidmpv01@gmail.com");
-		generadorArchivosInDTO.setNombreDonante("David Poveda");
-		generadorArchivosInDTO.setNumeroIdentificacion("80187069");
-		generadorArchivosInDTO.setTipoDocumento("Cedula de ciudadania");
-		inDetalle.setFechaDonacion("25/04/2014");
-		inDetalle.setFormaPago("Efectivo");
-		inDetalle.setNombreCampana("Teleton");
-		inDetalle.setValorCampana("600,000.oo");
-		listDetalle.add(inDetalle);
-		generadorArchivosInDTO.setDatosDonacion(listDetalle);
-		gab.abrirArchivo(generadorArchivosInDTO );
 	}
 	
 }
