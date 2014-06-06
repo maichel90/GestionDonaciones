@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head>
+<body> 
+	<ui:include src="menu.xhtml"/>
+	<div style="display: inline-block; vertical-align:top;">
+	<h:form id="formulario">
+		<table>
+			<tbody>
+				<tr>
+					<td>Nombre campana:</td>
+					<td><p:inputText id="username" value="#{campanaBean.nombreCamapana}"  required="true"/></td>
+				</tr>
+				<tr>
+					<td>Razon social:</td>
+					<td><p:inputText value="#{campanaBean.razonSocial}" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Contacto:</td>
+					<td><p:inputText value="#{campanaBean.contacto}" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Telefono contacto:</td>
+					<td><p:inputText value="#{campanaBean.telefonoContacto}" type="number" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Administrador:</td>
+					<td>
+						<p:selectOneMenu value="#{campanaBean.idAdministrador}">
+							<f:selectItems value="#{campanaBean.administradores}" var="admin" itemLabel="#{admin.nombre}" itemValue="#{admin.idPersona}"/>
+						</p:selectOneMenu>
+					</td>
+				</tr>
+				<tr>
+					<td>Creador:</td>
+					<td><p:inputText value="#{loginBean.persona.nombre}" readonly="true"/></td>
+				</tr>
+			</tbody>
+		</table>
+		<p:commandButton value="Guardar campana" actionListener="#{campanaBean.GuardarCamapana(loginBean.persona)}" update="formulario"/>
+		</h:form>
+	</div>
+	<p:messages id="Notificacion"  showDetail="true" autoUpdate="true" closable="true" />
+</body> 
+</html>

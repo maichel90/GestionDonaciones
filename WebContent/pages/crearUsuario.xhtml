@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head> 
+<body> 
+	<ui:include src="menu.xhtml"/>
+	<div style="display: inline-block; vertical-align:top;">
+	<h:form id="formulario">
+		<table>
+			<tbody>
+				<tr>
+					<td>Nombre:</td>
+					<td><p:inputText id="username" value="#{usuarioBean.nombre}"  required="true"/></td>
+				</tr>
+				<tr>
+					<td>Edad:</td>
+					<td><p:inputText value="#{usuarioBean.edad}" type="number" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Email:</td>
+					<td><p:inputText value="#{usuarioBean.email}" type="email" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Telefono:</td>
+					<td><p:inputText value="#{usuarioBean.telefono}" type="number" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Celular:</td>
+					<td><p:inputText value="#{usuarioBean.telefono}" type="number" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Direccion:</td>
+					<td><p:inputText value="#{usuarioBean.direccion}" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Contrasena:</td>
+					<td><p:inputText value="#{usuarioBean.edad}" type="number" required="true"/></td>
+				</tr>
+				<tr>
+					<td>Perfil:</td>
+					<td>
+						<p:selectOneMenu value="#{usuarioBean.idPerfil}" >
+							<f:selectItems value="#{usuarioBean.tipoPersonas}" var="tipo" itemLabel="#{tipo.rol}" itemValue="#{tipo.idTipoPersona}"/>
+						</p:selectOneMenu>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<p:commandButton value="Guardar usuario" actionListener="#{usuarioBean.GuardarNuevoUsuario()}" update="formulario"/>
+		</h:form>
+	</div>
+	<p:messages id="Notificacion"  showDetail="true" autoUpdate="true" closable="true" />
+</body> 
+</html>

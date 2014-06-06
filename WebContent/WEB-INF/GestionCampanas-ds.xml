@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<datasources xmlns="http://www.jboss.org/ironjacamar/schema">
+ <datasource jndi-name="java:jboss/datasources/MysqlArq" enabled="true" 
+     use-java-context="true" pool-name="MysqlArq">
+  <connection-url>jdbc:mysql://localhost:3306/GestionCampanas</connection-url>
+  <driver>mysql-5.1.26</driver>
+  <pool></pool>
+  <security>
+   <user-name>root</user-name>
+   <password>M1S9l</password>
+  </security>
+ </datasource>
+</datasources>

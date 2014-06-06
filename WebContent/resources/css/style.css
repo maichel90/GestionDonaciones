@@ -1,0 +1,13 @@
+@CHARSET "ISO-8859-1";
+
+body{
+	background-image:url("#{resource['images/background.jpg']}");
+	background-size: 50%;
+	background-repeat: no-repeat;
+	background-position: right bottom;
+}
+
+.contenedor{
+	display: inline-block; 
+	vertical-align:top;
+}

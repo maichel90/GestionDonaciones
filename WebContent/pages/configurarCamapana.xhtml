@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head> 
+<body> 
+	<ui:include src="menu.xhtml"/>
+	<div class="contenedor">
+	<p:messages id="Notificacion"  showDetail="true" autoUpdate="true" closable="true" />
+		<h:form id="formulario">
+			<p:dataTable value="#{campanaBean.campanas}" var="campana" editable="true">
+				<p:ajax event="rowEdit" listener="#{usuarioBean.EditarUsuario}" />
+				<f:facet name="header">
+		           CAMPANAS DEL SISTEMA
+		        </f:facet>
+				<p:column headerText="NOMBRE">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.nombre}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.nombre}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="RAZON SOCIAL">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.razonSocial}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.razonSocial}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="CONTACTO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.contacto}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.contacto}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="TELEFONO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.telefonoContacto}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.telefonoContacto}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="FECHA INICIO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.fechaInicio}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.fechaInicio}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="FECHA FINAL">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{campana.fechaFinal}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{campana.fechaFinal}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column>
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</body>  
+</html>

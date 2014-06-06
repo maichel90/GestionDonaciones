@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"> 
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head> 
+<body> 
+	<ui:include src="menu.xhtml"/>
+	<div style="display: inline-block; vertical-align:top;">
+	<p:messages id="Notificacion"  showDetail="true" autoUpdate="true" closable="true" />
+		<h:form id="formulario">
+			<p:dataTable value="#{usuarioBean.usuarios}" var="user" editable="true">
+				<p:ajax event="rowEdit" listener="#{usuarioBean.EditarUsuario}" />
+				<f:facet name="header">
+		           USUARIOS DEL SISTEMA
+		        </f:facet>
+				<p:column headerText="NOMBRE">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.nombre}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.nombre}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="EDAD">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.edad}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.edad}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="EMAIL">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.email}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.email}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="TELEFONO">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.telefono}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.telefono}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="CELULAR">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.celular}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.celular}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="DIRECCION">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.direccion}" /></f:facet>
+		               <f:facet name="input"><p:inputText  value="#{user.direccion}" style="width:100%"/></f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="PERFIL">
+					<p:cellEditor>
+		               <f:facet name="output"><h:outputText value="#{user.tipopersona.rol}" /></f:facet>
+		               <f:facet name="input">
+		                   <h:selectOneMenu value="#{usuarioBean.idPerfil}" style="width:100%">
+		                       <f:selectItems value="#{usuarioBean.tipoPersonas}" var="tipo" itemLabel="#{tipo.rol}" itemValue="#{tipo.idTipoPersona}" />
+		                   </h:selectOneMenu>
+		               </f:facet>
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column>
+					<p:rowEditor />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</div>
+</body> 
+</html>

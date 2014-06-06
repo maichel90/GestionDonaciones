@@ -1,0 +1,29 @@
+<ui:composition  xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+	<div style="display: inline-block; vertical-align:top;">
+		<h:form>
+			<p:menu>
+				<p:submenu label="Campana">
+					<p:menuitem value="Crear campana" outcome="crearCampana"/>
+					<p:menuitem value="Configurar campana" outcome="configurarCamapana"/>
+					<p:menuitem value="Seleccionar agentes"/>
+					<p:menuitem value="Preseleccionar donantes"/>
+					<p:menuitem value="Filtro donantes"/>
+					<p:menuitem value="Enviar Informacion CCA"/>
+				</p:submenu>
+				<p:submenu label="Donante">
+					<p:menuitem value="Crear donante" outcome="crearDonante"/>
+					<p:menuitem value="Modificar donante" outcome="modificarDonante"/>
+					<p:menuitem value="Cargar donantes" outcome="subirDonantes"/>
+				</p:submenu>
+				<p:submenu label="Usuarios">
+					<p:menuitem value="Crear usuario" outcome="crearUsuario"/>
+					<p:menuitem value="Modificar usuario" outcome="modificarUsuario"/>
+				</p:submenu>
+			</p:menu>
+		</h:form>
+	</div>
+</ui:composition >
