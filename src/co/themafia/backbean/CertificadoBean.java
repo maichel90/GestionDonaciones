@@ -25,8 +25,8 @@ public class CertificadoBean implements Serializable{
 	}
 	
 	public void GenerarCertificadoPDF() {
-		Query q = em.createNativeQuery("Donante.findByCedula");
-		q.setParameter("cedula", cedula);
+		Query q = em.createNamedQuery("Donante.findByCedula");
+		q.setParameter("identificacion", cedula);
 		Donante d = (Donante) q.getSingleResult();
 		System.out.println(d.getNombre());
 	}

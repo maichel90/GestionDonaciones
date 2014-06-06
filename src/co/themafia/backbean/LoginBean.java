@@ -69,6 +69,7 @@ public class LoginBean implements Serializable{
 			FacesContext.getCurrentInstance().addMessage("Notificacion", new FacesMessage(FacesMessage.SEVERITY_WARN,"Sistema informa", "No se ha podido autenticar"));
 			System.err.println("No se encontro ningun usuario con las credenciales");
 		}
+		System.out.println(resp);
 		return resp;
 	}
 }

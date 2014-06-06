@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Donante.findAll", query="SELECT d FROM Donante d"),
-	@NamedQuery(name="Donante.findByCedula", query="SELECT d FROM Donante d where d.cedula = :cedula")
+	@NamedQuery(name="Donante.findByCedula", query="SELECT d FROM Donante d where d.cedula = :identificacion")
 
 })
 public class Donante implements Serializable {
