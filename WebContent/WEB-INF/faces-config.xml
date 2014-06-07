@@ -14,7 +14,7 @@
  <managed-bean>
   <managed-bean-name>donanteBean</managed-bean-name>
   <managed-bean-class>co.themafia.backbean.DonanteBean</managed-bean-class>
-  <managed-bean-scope>request</managed-bean-scope>
+  <managed-bean-scope>view</managed-bean-scope>
  </managed-bean>
  <managed-bean>
   <managed-bean-name>usuarioBean</managed-bean-name>

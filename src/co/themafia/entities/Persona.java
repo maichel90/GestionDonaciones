@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the persona database table.
  * 
@@ -15,8 +14,10 @@ import java.util.List;
 	@NamedQuery(name="Persona.findByIdPersona", query="SELECT p FROM Persona p where p.idPersona=:id"),
 	@NamedQuery(name="Persona.findByTipoPersona", query="SELECT p FROM Persona p where p.tipopersona=:idTipoPersona"),
 	@NamedQuery(name="Persona.onlyPerson", query="SELECT p FROM Persona p where p.email=:email and p.password=:pass"),
-	@NamedQuery(name="Persona.findAgents", query="SELECT p FROM Persona p where p.tipopersona=:agente")
+	@NamedQuery(name="Persona.findAgents", query="SELECT p FROM Persona p where p.tipopersona=:agente"),
+	@NamedQuery(name="Persona.findbyName", query="SELECT p FROM Persona p where p.nombre=:nomAgente")
 })
+
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -20,19 +20,23 @@
 	<div class="contenedor">
 		<p:messages id="Notificacion" showDetail="true" autoUpdate="true"
 			closable="true" />
+		<p:outputLabel>Seleccionar Campaña</p:outputLabel>
+		<br/>	
 		<h:form id="campanhasListar">
-		<a:jsFunction name="cargar" ajaxSingle="true" action="#{agenteBean.iniciarEleccionCampana()}"/>
-			<p:selectOneMenu value="#{campanaBean.idCamapanaSel}">
+		<a:jsFunction name="cargar" ajaxSingle="true" action="#{agenteBean.iniciarAgentes()}"/>
+			<p:selectOneMenu value="#{agenteBean.idCamapanaSel}">
 				<f:selectItem itemLabel="Seleccione" />
 				<f:selectItems value="#{campanaBean.campanas}" var="t"
 					itemLabel="#{t.nombre}" itemValue="#{t.idCampanha}" />
 			</p:selectOneMenu>
+			<br/>
+			<p:outputLabel>Seleccionar Agentes</p:outputLabel>
+			<br/>
 			<p:pickList id="pickList" value="#{agenteBean.losAgentes}" var="agentes"
 				itemLabel="#{agentes}" itemValue="#{agentes}" />
 
-			<p:commandButton id="agentesSubmit" value="Submit"
-				update="campanhasListar" oncomplete="PF('cityDialog').show()"
-				style="margin-top:5px" />
+			<p:commandButton id="agentesSubmit" value="Asignar Agentes" actionListener="#{agenteBean.asignarAgentesSeleccionados(agenteBean.losAgentes.target)}"
+				update="campanhasListar"/>
 		</h:form>
 	</div>
 </body>
