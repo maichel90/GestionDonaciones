@@ -5,11 +5,12 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head> 
 <body>
    <ui:include src="menu.xhtml"/>
    <div style="display: inline-block; vertical-align:top;">
-   <p:messages id="Notificacion" showDetail="true" autoUpdate="true" closable="true" />
    <p:outputLabel>Modificacion Donante</p:outputLabel>
    <h:form id="seleccionarDonante">
    <table>
@@ -17,10 +18,10 @@
 		<tr>
    			<td>Donante:</td>
 			<td>
-				<p:selectOneMenu value="#{DonanteBean.seleccion}">
-				<p:ajax listener="#{DonanteBean.CargarInfoDonante()}" update="seleccionarDonante"/>
+				<p:selectOneMenu value="#{donanteBean.seleccion}">
+				<p:ajax listener="#{donanteBean.CargarInfoDonante()}" update="seleccionarDonante"/>
 				<f:selectItem itemLabel="Seleccione"/>
-				<f:selectItems value="#{DonanteBean.donantes}" var="t" itemLabel="#{t.nombre}" itemValue="#{t.cedula}"/>
+				<f:selectItems value="#{donanteBean.donantes}" var="t" itemLabel="#{t.nombre}" itemValue="#{t.cedula}"/>
 		     	</p:selectOneMenu>
 			</td>
 	    </tr>
@@ -30,35 +31,35 @@
 			<tbody>
 				<tr>
 					<td>Nombre:</td>
-					<td><p:inputText value="#{DonanteBean.nombre}"  required="true"/></td>
+					<td><p:inputText value="#{donanteBean.nombre}"  required="true"/></td>
 				</tr>
 				<tr>
 					<td>Cedula:</td>
-					<td><p:inputText value="#{DonanteBean.cedula}" type="number" required="true"/></td>
+					<td><p:inputText value="#{donanteBean.cedula}" type="number" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Direccion:</td>
-					<td><p:inputText value="#{DonanteBean.direccion}" required="true"/></td>
+					<td><p:inputText value="#{donanteBean.direccion}" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Telefono:</td>
-					<td><p:inputText value="#{DonanteBean.telefono}" type="number" required="true"/></td>
+					<td><p:inputText value="#{donanteBean.telefono}" type="number" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Celular:</td>
-					<td><p:inputText value="#{DonanteBean.celular}" type="number" required="true"/></td>
+					<td><p:inputText value="#{donanteBean.celular}" type="number" required="true"/></td>
 				</tr>
 				<tr>
 					<td>Tel. Oficina:</td>
-					<td><p:inputText value="#{DonanteBean.teleOfi}" type="number"/></td>
+					<td><p:inputText value="#{donanteBean.teleOfi}" type="number"/></td>
 				</tr>
 				<tr>
 					<td>Cel. Oficina:</td>
-					<td><p:inputText value="#{DonanteBean.celuOfi}" type="number"/></td>
+					<td><p:inputText value="#{donanteBean.celuOfi}" type="number"/></td>
 				</tr>
 			</tbody>
 		</table>
-		<p:commandButton value="Modificar Donante" actionListener="#{DonanteBean.ModificarDonante()}" update="seleccionarDonante"/>
+		<p:commandButton value="Modificar Donante" actionListener="#{donanteBean.ModificarDonante()}" update="seleccionarDonante"/>
 		</h:form>
 	</div>
 </body> 

@@ -188,5 +188,4 @@ public class Persona implements Serializable {
 	public void setCampanhas3(List<Campanha> campanhas3) {
 		this.campanhas3 = campanhas3;
 	}
-
 }

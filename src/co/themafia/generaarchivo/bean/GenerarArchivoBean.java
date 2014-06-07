@@ -266,7 +266,7 @@ public class GenerarArchivoBean {
 		message.setFrom(new InternetAddress(correo));
 
 		// Se rellenan los destinatarios
-		message.addRecipient(Message.RecipientType.TO, new InternetAddress("davidmpv01@gmail.com"));
+		message.addRecipient(Message.RecipientType.TO, new InternetAddress(correo));
 
 		// Se rellena el subject
 		message.setSubject("Certificado donación");

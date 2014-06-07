@@ -5,16 +5,20 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui">
 
-<h:head></h:head> 
+<h:head>
+	<h:outputStylesheet library="css" name="style.css"  />
+</h:head> 
 <body>
    <ui:include src="menu.xhtml"/>
    <div style="display: inline-block; vertical-align:top;">
    <p:outputLabel>Subir Donantes</p:outputLabel>
+   	<br/>
    	<h:form enctype="multipart/form-data">
-		<p:fileUpload value="#{DonanteBean.file}" mode="simple" />
-		<p:commandButton value="Submit" ajax="false" actionListener="#{DonanteBean.CargarArchivoDonantes()}"/>
-		</h:form>
+		<p:fileUpload value="#{donanteBean.file}" mode="simple" />
+		<br/>
+		<br/>
+		<p:commandButton value="Submit" ajax="false" actionListener="#{donanteBean.CargarArchivoDonantes()}"/>
+	</h:form>
    </div>
-   <p:messages id="Notificacion" showDetail="true" autoUpdate="true" closable="true" />
 </body>
 </html>
