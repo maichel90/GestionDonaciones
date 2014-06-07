@@ -12,7 +12,8 @@
 					<p:menuitem value="Seleccionar agentes"/>
 					<p:menuitem value="Preseleccionar donantes"/>
 					<p:menuitem value="Filtro donantes"/>
-					<p:menuitem value="Enviar Informacion CCA"/>
+					<p:menuitem value="Informacion CCA" action="#{restCliente.ConsumirServicioCCA()}"/>
+					<p:menuitem value="Generar cobros" action="#{restCliente.GenerarCobroTarjetas()}"/>
 				</p:submenu>
 				<p:submenu label="Donante">
 					<p:menuitem value="Crear donante" outcome="crearDonante"/>

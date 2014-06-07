@@ -14,15 +14,13 @@ import java.util.List;
 	@NamedQuery(name="Persona.findAll", query="SELECT p FROM Persona p"),
 	@NamedQuery(name="Persona.findByIdPersona", query="SELECT p FROM Persona p where p.idPersona=:id"),
 	@NamedQuery(name="Persona.findByTipoPersona", query="SELECT p FROM Persona p where p.tipopersona=:idTipoPersona"),
-	@NamedQuery(name="Persona.onlyPerson", query="SELECT p FROM Persona p where p.email=:email and p.password=:pass")
+	@NamedQuery(name="Persona.onlyPerson", query="SELECT p FROM Persona p where p.email=:email and p.password=:pass"),
+	@NamedQuery(name="Persona.findAgents", query="SELECT p FROM Persona p where p.tipopersona=:agente")
 })
-
-
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPersona;
 
 	private String celular;
@@ -52,7 +50,16 @@ public class Persona implements Serializable {
 	private Tipopersona tipopersona;
 
 	//bi-directional many-to-many association to Campanha
-	@ManyToMany(mappedBy="personas")
+	@ManyToMany
+	@JoinTable(
+		name="personacampanha"
+		, joinColumns={
+			@JoinColumn(name="Persona_idPersona")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="Campanha_idCampanha")
+			}
+		)
 	private List<Campanha> campanhas3;
 
 	public Persona() {

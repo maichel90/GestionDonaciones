@@ -1,9 +1,7 @@
 package co.themafia.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.List;
 
 
@@ -14,14 +12,12 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Tipopersona.findAll", query="SELECT t FROM Tipopersona t"),
-	@NamedQuery(name="Tipopersona.byIdTipo", query="SELECT t FROM Tipopersona t where t.idTipoPersona=:id")
-})
-
-public class Tipopersona implements Serializable {
+	@NamedQuery(name="Tipopersona.byIdTipo", query="SELECT t FROM Tipopersona t where t.idTipoPersona=:id"),
+	@NamedQuery(name="Tipopersona.findTipoAgent", query="SELECT t FROM Tipopersona t where t.idTipoPersona=3")
+})public class Tipopersona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idTipoPersona;
 
 	private String rol;
