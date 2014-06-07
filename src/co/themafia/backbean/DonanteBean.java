@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -24,13 +25,20 @@ import javax.transaction.RollbackException;
 import javax.transaction.SystemException;
 import javax.transaction.UserTransaction;
 
+import org.primefaces.model.DualListModel;
 import org.primefaces.model.UploadedFile;
 
 import au.com.bytecode.opencsv.CSVReader;
+import co.themafia.entities.Campanha;
+import co.themafia.entities.Donacion;
 import co.themafia.entities.Donante;
+import co.themafia.entities.Persona;
 
 public class DonanteBean {
 
+	@PersistenceContext EntityManager em;
+	@Resource UserTransaction ut;
+	
 	private static final long serialVersionUID = 1L;
 	private String nombre;
 	private Integer cedula;
@@ -41,14 +49,46 @@ public class DonanteBean {
 	private String celuOfi;
 	private Integer id;
 	private Integer seleccion;
-	
+	private Integer decision;
+	private Integer idCamapanaSel;
 	
 	private UploadedFile file;
 	
 	private List<Donante> donantes;
 	
-	@PersistenceContext EntityManager em;
-	@Resource UserTransaction ut;
+	private List<Donante> donantesConDonaciones;
+	
+	public Integer getIdCamapanaSel() {
+		return idCamapanaSel;
+	}
+	public void setIdCamapanaSel(Integer idCamapanaSel) {
+		this.idCamapanaSel = idCamapanaSel;
+	}
+	public DualListModel<String> getLosDonantes() {
+		return losDonantes;
+	}
+	public void setLosDonantes(DualListModel<String> losDonantes) {
+		this.losDonantes = losDonantes;
+	}
+	public List<String> getDonantesIni() {
+		return DonantesIni;
+	}
+	public void setDonantesIni(List<String> donantesIni) {
+		DonantesIni = donantesIni;
+	}
+	public List<String> getDonantesSel() {
+		return DonantesSel;
+	}
+	public void setDonantesSel(List<String> donantesSel) {
+		DonantesSel = donantesSel;
+	}
+
+	private List<Donante> donantesSinDonaciones;
+	
+	private DualListModel<String> losDonantes;
+	private List<String> DonantesIni = new ArrayList<String>();
+	private List<String> DonantesSel = new ArrayList<String>();
+	
 	
 	public Integer getSeleccion() {
 		return seleccion;
@@ -118,6 +158,25 @@ public class DonanteBean {
 		this.celuOfi = celuOfi;
 	}
 	
+	public List<Donante> getDonantesConDonaciones() {
+		return donantesConDonaciones;
+	}
+	public void setDonantesConDonaciones(List<Donante> donantesLista) {
+		this.donantesConDonaciones = donantesLista;
+	}
+	
+	public List<Donante> getDonantesSinDonaciones() {
+		return donantesSinDonaciones;
+	}
+	public void setDonantesSinDonaciones(List<Donante> donantesSinDonaciones) {
+		this.donantesSinDonaciones = donantesSinDonaciones;
+	}
+	public Integer getDecision() {
+		return decision;
+	}
+	public void setDecision(Integer decision) {
+		this.decision = decision;
+	}
 	public void GuardarDonante() {
 		Donante d = new Donante();
 		d.setNombre(nombre);
@@ -239,8 +298,56 @@ public class DonanteBean {
 	      catch(Exception e){
 	    	  FacesContext.getCurrentInstance().addMessage("Notificacion", new FacesMessage(FacesMessage.SEVERITY_WARN,"Sistema informa", "Ocurrio un problema, Hable con el Administrador de la aplicacion"));
 			  e.printStackTrace();
-	      }
-	     
+	      }    
 	}
+	
+	
+	public void elegirConsulta(){
+		
+	}
+	
+	public void inicializarDonantesConDonaciones(){
+		
+		Query q = em.createNamedQuery("Donante.findByDonadores");
+		//donantesConDonaciones = new ArrayList<Donante>();
+		donantesConDonaciones = q.getResultList();
+		for (Donante don : donantesConDonaciones) {
+			DonantesIni.add(don.getNombre());
+		}
+		DonantesSel = new ArrayList<String>();
+		losDonantes = new DualListModel<>(DonantesIni, DonantesSel);
+	}
+	
+	public void asignarDonantesSeleccionados(List<String> donantes){
+		Query q2 = em.createNamedQuery("Campanha.findbyId");
+		q2.setParameter("id", idCamapanaSel);
+		Campanha campahana = (Campanha) q2.getSingleResult();
+		List<Donante> donantesObjeto = new ArrayList<Donante>();
+		for (String nombre : donantes) {
+			Query q = em.createNamedQuery("Donante.findByNombre");
+			q.setParameter("nombreDon", nombre);
+			Donante donanteSeleccionado = (Donante) q.getSingleResult();
+			donantesObjeto.add(donanteSeleccionado);
+			System.out.println("asdasdasdas"+donanteSeleccionado.getCedula());
+		}
+//		campahana.setIdCampanha(idCamapanaSel);
+		campahana.setDonantes(donantesObjeto);
+		for (Donante donante : campahana.getDonantes()) {
+			System.out.println(donante.getCedula()+"ghjghjghjhgjggj");
+		}
+		try {
+			ut.begin();
+			for (Donante donante : donantesObjeto) {
+				System.out.println("insert into campanhadonante values ("+idCamapanaSel+","+donante.getIdDonante()+");");
+				em.createNativeQuery("insert into gestioncampanas.campanhadonante values ("+idCamapanaSel+","+donante.getIdDonante()+");");
+			}
+			ut.commit();
+			FacesContext.getCurrentInstance().addMessage("Notificacion", new FacesMessage(FacesMessage.SEVERITY_INFO,"Sistema informa", "Se han agregado los donantes a la campaña"));
+		} catch (NotSupportedException | SystemException | SecurityException | IllegalStateException | RollbackException | HeuristicMixedException | HeuristicRollbackException e) {
+			FacesContext.getCurrentInstance().addMessage("Notificacion", new FacesMessage(FacesMessage.SEVERITY_WARN,"Sistema informa", "No se han podido agregado los agentes a la campaña"));
+			e.printStackTrace();
+		}
+	}
+
 	
 }

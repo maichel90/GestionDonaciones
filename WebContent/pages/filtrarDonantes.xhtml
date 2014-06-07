@@ -13,13 +13,37 @@
    <div class="contenedor">
     <p:messages id="Notificacion" showDetail="true" autoUpdate="true" closable="true" />
 	<h:form id="filtrarDonantes">
-	<p:selectOneMenu value="#{agenteBean.idCamapanaSel}" onchange="#{donanteBean.CargarInfoDonante()}">
-				<p:ajax listener="#{donanteBean.CargarInfoDonante()}" update="seleccionarDonante"/>
-				<f:selectItem itemLabel="Seleccione" value="0"/>
-				<f:selectItem itemLabel="Donantes que no se han llamada" value="1"/>
-				<f:selectItem itemLabel="Donantes fecha ultimo contacto" value="2"/>
-				<f:selectItem itemLabel="Donantes con donaciones realizadas" value="3"/>
+	Seleccione el tipo de filtro:
+	<br/>
+	<p:selectOneMenu value="#{donanteBean.decision}">
+				<p:ajax listener="#{donanteBean.elegirConsulta()}" update="filtrarDonantes"/>
+				<f:selectItem itemLabel="Seleccione" itemValue="0"/>
+				<f:selectItem itemLabel="Donantes que no se han llamada" itemValue="1"/>
+				<f:selectItem itemLabel="Donantes fecha ultimo contacto" itemValue="2"/>
+				<f:selectItem itemLabel="Donantes con donaciones realizadas" itemValue="3"/>
 			</p:selectOneMenu>
+			<p:dataTable value="#{donanteBean.donantesLista}" var="donantes" editable="false">
+				<p:column headerText="NOMBRE">
+					<p:cellEditor>
+		               <h:outputText value="#{donantes.nombre}" />
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="CEDULA">
+					<p:cellEditor>
+		               <h:outputText value="#{donantes.cedula}" />
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="DIRECCION">
+					<p:cellEditor>
+		               <h:outputText value="#{donantes.direccion}" />
+		           </p:cellEditor>
+           		</p:column>
+           		<p:column headerText="TELEFONO">
+					<p:cellEditor>
+		               <h:outputText value="#{donantes.telefono}" />
+		           </p:cellEditor>
+           		</p:column>
+			</p:dataTable>
 	</h:form>
 	</div>
 </body>

@@ -95,7 +95,7 @@ public class GenerarArchivoBean {
 		parrafo.setAlignment(Paragraph.ALIGN_CENTER);
 		parrafo.setFont(FontFactory.getFont("Sans", 20, Font.BOLD,
 				BaseColor.BLACK));
-		parrafo.add("BPO");
+		parrafo.add("BPO los Alpes");
 		
 		Paragraph parrafo0 = new Paragraph();
 		parrafo0.setAlignment(Paragraph.ALIGN_CENTER);

@@ -9,9 +9,16 @@
 				<p:submenu label="Campana">
 					<p:menuitem value="Crear campana" outcome="crearCampana"/>
 					<p:menuitem value="Configurar campana" outcome="configurarCamapana"/>
-					<p:menuitem value="Seleccionar agentes" outcome="seleccionarAgentes" actionListener="#{agenteBean.iniciarEleccionCampana()}"/>
+					<p:menuitem value="Seleccionar agentes" outcome="seleccionarAgentes"/>
 					<p:menuitem value="Preseleccionar donantes"/>
-					<p:menuitem value="Filtro donantes"/>
+					<p:menuitem value="Filtro donantes" outcome="filtrarDonantes">
+						<p:panelMenu styleClass="boton">
+        				<p:submenu label="Filtrar Donantes">
+            			<p:menuitem value="Donantes con Donaciones" url="http://localhost:8080/GestionDonaciones/pages/DonacionesExitosas.xhtml"/>
+            			<p:menuitem value="Donantes sin Donaciones" url="http://www.primefaces.org"/>
+        				</p:submenu>
+        			</p:panelMenu>
+					</p:menuitem>
 					<p:menuitem value="Enviar Informacion CCA"/>
 				</p:submenu>
 				<p:submenu label="Donante">

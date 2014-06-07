@@ -12,7 +12,10 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Donante.findAll", query="SELECT d FROM Donante d"),
-	@NamedQuery(name="Donante.findByCedula", query="SELECT d FROM Donante d where d.cedula = :identificacion")
+	@NamedQuery(name="Donante.findByCedula", query="SELECT d FROM Donante d where d.cedula = :identificacion"),
+	@NamedQuery(name="Donante.findByDonadores", query="SELECT distinct(d) FROM Donante d where d.idDonante not in (select don.donante.idDonante FROM Donacion don where don.donante.idDonante=d.idDonante)"),
+	@NamedQuery(name="Donante.findByNoDonadores", query="SELECT distinct(d) FROM Donante d where d.idDonante not in (select don.donante.idDonante FROM Donacion don where don.donante.idDonante=d.idDonante)"),
+	@NamedQuery(name="Donante.findByNombre", query="SELECT d FROM Donante d where d.nombre = :nombreDon")
 })
 public class Donante implements Serializable {
 	private static final long serialVersionUID = 1L;

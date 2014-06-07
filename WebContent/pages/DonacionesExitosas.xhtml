@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui" 
+	xmlns:a="http://richfaces.org/a4j">
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<script type="text/javascript" language="javascript">
+		window.onload = function(){
+			cargar();
+			}
+	</script>
+</h:head>
+<body>
+	<ui:include src="menu.xhtml" />
+	<div class="contenedor">
+		<h:form id="donantesExitosos">
+			<p:messages id="Notificacion" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<a:jsFunction name="cargar" ajaxSingle="true" action="#{donanteBean.inicializarDonantesConDonaciones()}" />
+			<p:outputLabel>Seleccionar Campaña</p:outputLabel>
+			<br/>
+			<p:selectOneMenu value="#{donanteBean.idCamapanaSel}">
+				<f:selectItem itemLabel="Seleccione" />
+				<f:selectItems value="#{campanaBean.campanas}" var="t"
+					itemLabel="#{t.nombre}" itemValue="#{t.idCampanha}" />
+			</p:selectOneMenu>
+			<p:outputLabel>Seleccionar Donantes</p:outputLabel>
+			<br/>
+			<p:pickList id="pickListDonantes" value="#{donanteBean.losDonantes}" var="donantes"
+				itemLabel="#{donantes}" itemValue="#{donantes}" />
+			<p:commandButton id="donantesSubmit" value="Asignar Donantes" actionListener="#{donanteBean.asignarDonantesSeleccionados(donanteBean.losDonantes.target)}"/>
+		</h:form>
+	</div>
+</body>
+</html>
+

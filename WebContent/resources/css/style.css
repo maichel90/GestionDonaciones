@@ -11,3 +11,9 @@ body{
 	display: inline-block; 
 	vertical-align:top;
 }
+
+.boton{
+	font-weight: 400;
+	line-height: 16px;
+	cursor: pointer;
+}
