@@ -26,6 +26,11 @@
   <managed-bean-class>co.themafia.backbean.CertificadoBean</managed-bean-class>
   <managed-bean-scope>request</managed-bean-scope>
  </managed-bean>
+  <managed-bean>
+  <managed-bean-name>restCliente</managed-bean-name>
+  <managed-bean-class>co.themafia.rest.RestCliente</managed-bean-class>
+  <managed-bean-scope>request</managed-bean-scope>
+ </managed-bean>
  <managed-bean>
   <managed-bean-name>agenteBean</managed-bean-name>
   <managed-bean-class>co.themafia.backbean.AgenteBean</managed-bean-class>

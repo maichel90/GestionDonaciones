@@ -19,7 +19,6 @@ public class Campanha implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idCampanha;
 
 	private String contacto;
@@ -59,16 +58,7 @@ public class Campanha implements Serializable {
 	private List<Donacion> donacions;
 
 	//bi-directional many-to-many association to Persona
-	@ManyToMany
-	@JoinTable(
-		name="personacampanha"
-		, joinColumns={
-			@JoinColumn(name="Campanha_idCampanha")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="Persona_idPersona")
-			}
-		)
+	@ManyToMany(mappedBy="campanhas3")
 	private List<Persona> personas;
 
 	public Campanha() {

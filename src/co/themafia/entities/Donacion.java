@@ -2,6 +2,7 @@ package co.themafia.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -9,17 +10,22 @@ import javax.persistence.*;
  * 
  */
 @Entity
-@NamedQuery(name="Donacion.findAll", query="SELECT d FROM Donacion d")
+@NamedQueries({
+	@NamedQuery(name="Donacion.findAll", query="SELECT d FROM Donacion d"),
+	@NamedQuery(name="Donacion.findByFormaPago", query="SELECT d FROM Donacion d where d.formaPago = :forma")
+})
 public class Donacion implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idDonacion;
 
 	private int codSecTarjeta;
 
 	private byte estado;
+
+	@Temporal(TemporalType.DATE)
+	private Date fechaDonacion;
 
 	private String formaPago;
 
@@ -33,13 +39,13 @@ public class Donacion implements Serializable {
 
 	private int valor;
 
-	//bi-directional many-to-one association to Donante
-	@ManyToOne
-	private Donante donante;
-
 	//bi-directional many-to-one association to Campanha
 	@ManyToOne
 	private Campanha campanha;
+
+	//bi-directional many-to-one association to Donante
+	@ManyToOne
+	private Donante donante;
 
 	public Donacion() {
 	}
@@ -66,6 +72,14 @@ public class Donacion implements Serializable {
 
 	public void setEstado(byte estado) {
 		this.estado = estado;
+	}
+
+	public Date getFechaDonacion() {
+		return this.fechaDonacion;
+	}
+
+	public void setFechaDonacion(Date fechaDonacion) {
+		this.fechaDonacion = fechaDonacion;
 	}
 
 	public String getFormaPago() {
@@ -116,20 +130,20 @@ public class Donacion implements Serializable {
 		this.valor = valor;
 	}
 
-	public Donante getDonante() {
-		return this.donante;
-	}
-
-	public void setDonante(Donante donante) {
-		this.donante = donante;
-	}
-
 	public Campanha getCampanha() {
 		return this.campanha;
 	}
 
 	public void setCampanha(Campanha campanha) {
 		this.campanha = campanha;
+	}
+
+	public Donante getDonante() {
+		return this.donante;
+	}
+
+	public void setDonante(Donante donante) {
+		this.donante = donante;
 	}
 
 }

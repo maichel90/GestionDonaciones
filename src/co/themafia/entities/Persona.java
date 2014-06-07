@@ -4,7 +4,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 import java.util.List;
 
-
 /**
  * The persistent class for the persona database table.
  * 
@@ -19,12 +18,10 @@ import java.util.List;
 	@NamedQuery(name="Persona.findbyName", query="SELECT p FROM Persona p where p.nombre=:nomAgente")
 })
 
-
 public class Persona implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPersona;
 
 	private String celular;
@@ -54,7 +51,16 @@ public class Persona implements Serializable {
 	private Tipopersona tipopersona;
 
 	//bi-directional many-to-many association to Campanha
-	@ManyToMany(mappedBy="personas")
+	@ManyToMany
+	@JoinTable(
+		name="personacampanha"
+		, joinColumns={
+			@JoinColumn(name="Persona_idPersona")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="Campanha_idCampanha")
+			}
+		)
 	private List<Campanha> campanhas3;
 
 	public Persona() {
@@ -183,5 +189,4 @@ public class Persona implements Serializable {
 	public void setCampanhas3(List<Campanha> campanhas3) {
 		this.campanhas3 = campanhas3;
 	}
-
 }
