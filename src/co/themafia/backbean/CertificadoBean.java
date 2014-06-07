@@ -18,10 +18,13 @@ import co.themafia.generaarchivo.bean.GenerarArchivoBean;
 
 public class CertificadoBean implements Serializable{
 	
-	private Integer cedula;
+	
 	@PersistenceContext EntityManager em;
 	@Resource UserTransaction ut;
 	
+	private String correo;
+	private Integer cedula;
+	private Boolean error;
 	public Integer getCedula() {
 		return cedula;
 	}
@@ -30,15 +33,39 @@ public class CertificadoBean implements Serializable{
 		this.cedula = cedula;
 	}
 	
+	public String getCorreo() {
+		return correo;
+	}
+
+	public void setCorreo(String correo) {
+		this.correo = correo;
+	}
+	
+	public Boolean getError() {
+		return error;
+	}
+
+	public void setError(Boolean error) {
+		this.error = error;
+	}
+
 	public void GenerarCertificadoPDF() {
+		error = Boolean.FALSE;
 		Query q = em.createNamedQuery("Donante.findByCedula");
 		q.setParameter("identificacion", cedula);
 		Donante d = (Donante) q.getSingleResult();
-		d.setDonacions( em.createQuery("Select d from Donacion d where d.donante = :donante").setParameter("donante",d).getResultList());
+		List<Donacion> donaciones = em.createQuery("Select d from Donacion d where d.donante = :donante").setParameter("donante",d).getResultList();
+		if(donaciones.isEmpty()){
+			error = Boolean.TRUE;
+			System.out.println("error reporte");
+			return;
+		}
+		d.setDonacions( donaciones);
 		GenerarArchivoBean g = new GenerarArchivoBean();
 		try {
+			
 			g.generarArchivo(d);
-			g.enviarCorreo(d.getNombre());
+			g.enviarCorreo(correo);
 		} catch (IOException | MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

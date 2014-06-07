@@ -14,7 +14,8 @@ import java.util.List;
 @Entity
 @NamedQueries({
 	@NamedQuery(name="Tipopersona.findAll", query="SELECT t FROM Tipopersona t"),
-	@NamedQuery(name="Tipopersona.byIdTipo", query="SELECT t FROM Tipopersona t where t.idTipoPersona=:id")
+	@NamedQuery(name="Tipopersona.byIdTipo", query="SELECT t FROM Tipopersona t where t.idTipoPersona=:id"),
+	@NamedQuery(name="Tipopersona.findTipoAgent", query="SELECT t FROM Tipopersona t where t.idTipoPersona=3")
 })
 
 public class Tipopersona implements Serializable {

@@ -1,0 +1,39 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:a="http://richfaces.org/a4j">
+	
+
+<h:head>
+	<h:outputStylesheet library="css" name="style.css" />
+	<script type="text/javascript" language="javascript">
+		window.onload = function(){
+			cargar();
+			}
+	</script>
+</h:head>
+<body>
+	<ui:include src="menu.xhtml" />
+	<div class="contenedor">
+		<p:messages id="Notificacion" showDetail="true" autoUpdate="true"
+			closable="true" />
+		<h:form id="campanhasListar">
+		<a:jsFunction name="cargar" ajaxSingle="true" action="#{agenteBean.iniciarEleccionCampana()}"/>
+			<p:selectOneMenu value="#{campanaBean.idCamapanaSel}">
+				<f:selectItem itemLabel="Seleccione" />
+				<f:selectItems value="#{campanaBean.campanas}" var="t"
+					itemLabel="#{t.nombre}" itemValue="#{t.idCampanha}" />
+			</p:selectOneMenu>
+			<p:pickList id="pickList" value="#{agenteBean.losAgentes}" var="agentes"
+				itemLabel="#{agentes}" itemValue="#{agentes}" />
+
+			<p:commandButton id="citySubmit" value="Submit"
+				update="campanhasListar" oncomplete="PF('cityDialog').show()"
+				style="margin-top:5px" />
+		</h:form>
+	</div>
+</body>
+</html>

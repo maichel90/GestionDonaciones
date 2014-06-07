@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://richfaces.org/a4j"> 
+
+<h:head></h:head> 
+<body> 
+	<ui:include src="menu.xhtml"/>
+	<div style="display: inline-block; vertical-align:top;">
+	
+	<h:form>
+		<p:outputLabel>
+		Generar Certificado
+		</p:outputLabel>
+		<table>
+		<tr>
+		<td>
+		<p:outputLabel>
+		Indentificacion
+		</p:outputLabel>
+		<p:inputText value="#{certificadoBean.cedula}" required="true"/>
+		</td>
+		<td>
+		<p:outputLabel>
+		Correo
+		</p:outputLabel>
+		<p:inputText value="#{certificadoBean.correo}" requierd="true"/>
+		</td>
+		</tr>
+		</table>
+		
+		
+		<p:commandButton action="#{certificadoBean.GenerarCertificadoPDF()}" value="Generar"
+		oncomplete="#{certificadoBean.error}{}"/>
+	</h:form>
+	</div>
+</body> 
+</html>

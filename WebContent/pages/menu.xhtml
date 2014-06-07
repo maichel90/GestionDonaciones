@@ -9,7 +9,7 @@
 				<p:submenu label="Campana">
 					<p:menuitem value="Crear campana" outcome="crearCampana"/>
 					<p:menuitem value="Configurar campana" outcome="configurarCamapana"/>
-					<p:menuitem value="Seleccionar agentes"/>
+					<p:menuitem value="Seleccionar agentes" outcome="seleccionarAgentes" actionListener="#{agenteBean.iniciarEleccionCampana()}"/>
 					<p:menuitem value="Preseleccionar donantes"/>
 					<p:menuitem value="Filtro donantes"/>
 					<p:menuitem value="Enviar Informacion CCA"/>
@@ -18,6 +18,7 @@
 					<p:menuitem value="Crear donante" outcome="crearDonante"/>
 					<p:menuitem value="Modificar donante" outcome="modificarDonante"/>
 					<p:menuitem value="Cargar donantes" outcome="subirDonantes"/>
+					<p:menuitem value="Generar Certificado donacion" outcome="generaCertificado"/>
 				</p:submenu>
 				<p:submenu label="Usuarios">
 					<p:menuitem value="Crear usuario" outcome="crearUsuario"/>

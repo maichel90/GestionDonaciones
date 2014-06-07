@@ -151,8 +151,8 @@ public class DonanteBean {
 	public void CargarInfoDonante(){
 		System.out.println(seleccion);
 		try{
-			Query q = em.createNamedQuery("Donante.obtenerDonantebyCedula");
-			q.setParameter("cedulaParm", seleccion);
+			Query q = em.createNamedQuery("Donante.findByCedula");
+			q.setParameter("identificacion", seleccion);
 			Donante donante = (Donante) q.getSingleResult();
 			this.setId(donante.getIdDonante());
 			this.setNombre(donante.getNombre());

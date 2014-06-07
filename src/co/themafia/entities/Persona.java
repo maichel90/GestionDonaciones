@@ -14,7 +14,8 @@ import java.util.List;
 	@NamedQuery(name="Persona.findAll", query="SELECT p FROM Persona p"),
 	@NamedQuery(name="Persona.findByIdPersona", query="SELECT p FROM Persona p where p.idPersona=:id"),
 	@NamedQuery(name="Persona.findByTipoPersona", query="SELECT p FROM Persona p where p.tipopersona=:idTipoPersona"),
-	@NamedQuery(name="Persona.onlyPerson", query="SELECT p FROM Persona p where p.email=:email and p.password=:pass")
+	@NamedQuery(name="Persona.onlyPerson", query="SELECT p FROM Persona p where p.email=:email and p.password=:pass"),
+	@NamedQuery(name="Persona.findAgents", query="SELECT p FROM Persona p where p.tipopersona=:agente")
 })
 
 
