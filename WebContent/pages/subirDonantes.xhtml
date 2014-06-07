@@ -10,14 +10,15 @@
 </h:head> 
 <body>
    <ui:include src="menu.xhtml"/>
-   <div style="display: inline-block; vertical-align:top;">
+   <div class="contenedor">
+   <p:messages id="Notificacion" showDetail="true" autoUpdate="true" closable="true" />
    <p:outputLabel>Subir Donantes</p:outputLabel>
    	<br/>
    	<h:form enctype="multipart/form-data">
 		<p:fileUpload value="#{donanteBean.file}" mode="simple" />
 		<br/>
 		<br/>
-		<p:commandButton value="Submit" ajax="false" actionListener="#{donanteBean.CargarArchivoDonantes()}"/>
+		<p:commandButton value="Agregar Donantes" ajax="false" actionListener="#{donanteBean.CargarArchivoDonantes()}"/>
 	</h:form>
    </div>
 </body>

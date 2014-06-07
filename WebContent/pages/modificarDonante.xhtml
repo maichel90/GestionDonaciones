@@ -10,7 +10,8 @@
 </h:head> 
 <body>
    <ui:include src="menu.xhtml"/>
-   <div style="display: inline-block; vertical-align:top;">
+   <div class="contenedor">
+   <p:messages id="Notificacion" showDetail="true" autoUpdate="true" closable="true" />
    <p:outputLabel>Modificacion Donante</p:outputLabel>
    <h:form id="seleccionarDonante">
    <table>
@@ -18,7 +19,7 @@
 		<tr>
    			<td>Donante:</td>
 			<td>
-				<p:selectOneMenu value="#{donanteBean.seleccion}">
+				<p:selectOneMenu value="#{donanteBean.seleccion}" onchange="#{donanteBean.CargarInfoDonante()}">
 				<p:ajax listener="#{donanteBean.CargarInfoDonante()}" update="seleccionarDonante"/>
 				<f:selectItem itemLabel="Seleccione"/>
 				<f:selectItems value="#{donanteBean.donantes}" var="t" itemLabel="#{t.nombre}" itemValue="#{t.cedula}"/>

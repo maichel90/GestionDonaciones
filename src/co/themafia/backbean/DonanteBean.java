@@ -42,6 +42,7 @@ public class DonanteBean {
 	private Integer id;
 	private Integer seleccion;
 	
+	
 	private UploadedFile file;
 	
 	private List<Donante> donantes;

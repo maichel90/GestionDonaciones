@@ -10,7 +10,7 @@
 </h:head> 
 <body> 
 	<ui:include src="menu.xhtml"/>
-	<div style="display: inline-block; vertical-align:top;">
+	<div class="contenedor">
 	<p:messages id="Notificacion"  showDetail="true" autoUpdate="true" closable="true" />
 		<h:form id="formulario">
 			<p:dataTable value="#{usuarioBean.usuarios}" var="user" editable="true">
